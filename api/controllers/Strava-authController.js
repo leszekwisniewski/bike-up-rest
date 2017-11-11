@@ -5,7 +5,6 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 const request = require('request')
-const 
 
 module.exports = {
 
@@ -13,20 +12,27 @@ module.exports = {
    * `Strava-authController.callback()`
    */
   callback: function (req, res) {
-    let form = {
-      clientId: 20853
-      clientSecret: 'b8d7a8379eba9233054e02d1e61dbb734acc7fc4'
-      code: req.param('code')
+    let formData = {
+      client_id: '20853', // bikeup app id
+      client_secret: 'b8d7a8379eba9233054e02d1e61dbb734acc7fc4',
+      code: req.query.code
     }
-    request.post({ url:'https://www.strava.com/oauth/token', form}, function(err, httpResponse, body) {
+    request.post({ url:'https://www.strava.com/oauth/token', form: formData}, function(err, res, body) {
       if (err) {
-        return console.error('Token exchange failed:', err);
+        sails.error('Token exchange failed:', err)
+        return res.serverError(err)
       }
-      //TODO write the user-specific token to cassandra
-    });
-    // return res.json({
 
-    // });
-  }
+      let responseBody = JSON.parse(body)
+      Strava_users.create({user_id: responseBody.athlete.id, access_token: responseBody.access_token}).exec(function (err, user) {
+        if (err) {
+          sails.error(err)
+        }
+        sails.log('Successfully added a Strava user:', user)
+      });
+    });
+    return res.send('<script>alert(\'jeee boy! thx!\');</script>');
+  },
+
 };
 

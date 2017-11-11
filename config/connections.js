@@ -28,17 +28,17 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  my-cassandra-connection: {
+  con: {
 
-    module        : 'sails-cassandra',
+    adapter       : 'sails-cassandra',
 
     // typical sails/waterline options (see comment below)
-    user          : 'username',
-    password      : 'password',
+    user          : 'cassandra',
+    password      : 'cassandra',
 
     // cassandra driver options
     contactPoints : [ '127.0.0.1' ],
-    keyspace      : 'keyspace name'
+    keyspace      : 'bikeup'
   }
 
   /***************************************************************************
