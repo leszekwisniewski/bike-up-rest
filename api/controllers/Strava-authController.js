@@ -24,7 +24,18 @@ module.exports = {
       }
 
       let responseBody = JSON.parse(body)
-      Strava_users.create({user_id: responseBody.athlete.id, access_token: responseBody.access_token}).exec(function (err, user) {
+      Strava_users.create({
+        access_token: responseBody.access_token,
+        user_id: responseBody.athlete.id,
+        firstname: responseBody.athlete.firstname,
+        lastname: responseBody.athlete.lastname,
+        city: responseBody.athlete.city,
+        state: responseBody.athlete.state,
+        country: responseBody.athlete.country,
+        sex: responseBody.athlete.sex,
+        premium: responseBody.athlete.premium,
+        email: responseBody.athlete.email,
+      }).exec(function (err, user) {
         if (err) {
           sails.error(err)
         }
