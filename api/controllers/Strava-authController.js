@@ -19,7 +19,7 @@ module.exports = {
     }
     request.post({ url:'https://www.strava.com/oauth/token', form: formData}, function(err, res, body) {
       if (err) {
-        sails.error('Token exchange failed:', err)
+        sails.log.error('Token exchange failed:', err)
         return res.serverError(err)
       }
 
@@ -37,7 +37,7 @@ module.exports = {
         email: responseBody.athlete.email,
       }).exec(function (err, user) {
         if (err) {
-          sails.error(err)
+          sails.log.error(err)
         }
         sails.log('Successfully added a Strava user:', user)
       });
