@@ -39,7 +39,7 @@ module.exports = {
         if (err) {
           sails.log.error(err)
         }
-        sails.log('Successfully added a Strava user:', user)
+        else sails.log('Successfully added a Strava user:', user)
       });
     });
     return res.send('<script>alert(\'jeee boy! thx!\');</script>');

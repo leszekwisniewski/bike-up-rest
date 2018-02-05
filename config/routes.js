@@ -35,7 +35,8 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'get /api/auth/callback': 'Strava-authController.callback'
+  'get /api/auth/callback': 'Strava-authController.callback',
+  'post /api/activities': 'UserActivitiesController.create'
 
   /***************************************************************************
    *                                                                          *
